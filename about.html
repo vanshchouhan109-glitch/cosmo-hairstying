@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | Cosmo Hairstyling Rotterdam Weena</title>
+  <meta name="description" content="Meet the expert styling team at Cosmo Hairstyling in Rotterdam Weena. Premium hair care, expert colorists, and a luxurious experience.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── Story Section ─── */
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .story-img {
+      position: relative;
+    }
+
+    .story-img img {
+      width: 100%;
+      height: 560px;
+      object-fit: cover;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .story-img-accent {
+      position: absolute;
+      top: -20px;
+      left: -20px;
+      width: 100%;
+      height: 100%;
+      border: 2px solid var(--gold-light);
+      border-radius: var(--radius);
+      z-index: -1;
+    }
+
+    .signature {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 2rem;
+      color: var(--gold);
+      margin: 24px 0 0;
+    }
+
+    .story-text p { color: var(--muted); margin-bottom: 18px; font-size: 0.95rem; }
+
+    /* ── Values ─── */
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+
+    .value-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 44px 32px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+
+    .value-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+
+    .value-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--beige), var(--blush));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 22px;
+      font-size: 2rem;
+      color: var(--gold);
+    }
+
+    .value-card h3 { font-size: 1.5rem; margin-bottom: 12px; }
+    .value-card p { color: var(--muted); font-size: 0.9rem; }
+
+    /* ── Timeline ─── */
+    .timeline { max-width: 700px; margin: 0 auto; }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 28px;
+      padding-bottom: 40px;
+      position: relative;
+    }
+
+    .timeline-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 39px;
+      top: 48px;
+      width: 2px;
+      height: calc(100% - 20px);
+      background: linear-gradient(to bottom, var(--gold-light), transparent);
+    }
+
+    .timeline-year {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+
+    .timeline-body h4 { font-size: 1.3rem; margin-bottom: 8px; padding-top: 20px; }
+    .timeline-body p { color: var(--muted); font-size: 0.9rem; }
+
+    /* ── Certifications ─── */
+    .certs-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .cert-box {
+      background: var(--beige);
+      border-radius: var(--radius);
+      padding: 30px 20px;
+      text-align: center;
+      transition: var(--transition);
+      border-bottom: 3px solid transparent;
+    }
+
+    .cert-box:hover { border-color: var(--gold); background: var(--white); }
+    .cert-box i { font-size: 2rem; color: var(--gold); margin-bottom: 14px; }
+    .cert-box h4 { font-size: 1.1rem; margin-bottom: 6px; }
+    .cert-box p { font-size: 0.82rem; color: var(--muted); }
+
+    @media (max-width: 900px) {
+      .story-grid { grid-template-columns: 1fr; }
+      .story-img img { height: 360px; }
+      .values-grid { grid-template-columns: 1fr 1fr; }
+      .certs-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 560px) {
+      .values-grid { grid-template-columns: 1fr; }
+      .certs-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="navbar solid" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <span class="logo-main">Cosmo Hairstyling</span>
+      <span class="logo-sub">Premium Hairstyling · Rotterdam Weena</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="reviews.html">Reviews</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <a href="contact.html#book" class="btn btn-primary">Book Now</a>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+<div class="drawer-overlay"></div>
+<aside class="mobile-drawer">
+  <button class="drawer-close"><i class="fas fa-times"></i></button>
+  <a href="index.html" class="logo"><span class="logo-main" style="color:var(--dark)">Cosmo Hairstyling</span><span class="logo-sub">Rotterdam Weena</span></a>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="reviews.html">Reviews</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="contact.html#book" class="btn btn-primary">Book Appointment</a>
+</aside>
+
+<!-- PAGE HERO -->
+<div class="page-hero" style="background-image:url('https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&q=80&w=1600')">
+  <div class="page-hero-content">
+    <span class="label">Our Story</span>
+    <h1>About Cosmo Hairstyling</h1>
+  </div>
+</div>
+
+<!-- STORY -->
+<section class="section">
+  <div class="container">
+    <div class="story-grid">
+      <div class="story-img reveal">
+        <div class="story-img-accent"></div>
+        <img src="https://images.unsplash.com/photo-1595476108010-b4d1f10a5146?auto=format&fit=crop&q=80&w=800" alt="Cosmo Hairstyling Salon">
+      </div>
+      <div class="story-text reveal delay-1">
+        <span class="label">Meet the Cosmo Team</span>
+        <h2 class="section-title">Your Premium Hair Care Experts</h2>
+        <p>Welcome to Cosmo Hairstyling, a premium, spacious, and luxurious hair salon in the heart of Rotterdam Weena. Our highly hospitable team of expert stylists is dedicated to ensuring you leave feeling confident and beautiful.</p>
+        <p>Our philosophy is simple: a hair appointment should never be rushed and should always be a luxurious experience. Whether you're visiting for a quick after-work haircut, complex color correction, or specialized curl recovery, our experienced team—including Ranko, Pieta, Vanity, Robin, Diana, Stacy, and Yvonne—is here to provide unmatched personal attention.</p>
+        <p>From the moment you walk in and are handed an excellent cappuccino, you'll know you're in the right hands. Premium hair products, expert technique, and genuine care. That is the Cosmo Hairstyling promise.</p>
+        <div class="signature">The Cosmo Team</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="section bg-alt">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="label">Our Philosophy</span>
+      <h2 class="section-title">What We Stand For</h2>
+      <div class="divider"><span></span><i class="fas fa-spa"></i><span></span></div>
+    </div>
+    <div class="values-grid">
+      <div class="value-card reveal">
+        <div class="value-icon"><i class="fas fa-spray-can"></i></div>
+        <h3>Premium Hair Products</h3>
+        <p>We use only the finest professional-grade hair care products, ensuring your hair remains healthy, vibrant, and protected.</p>
+      </div>
+      <div class="value-card reveal delay-1">
+        <div class="value-icon"><i class="fas fa-palette"></i></div>
+        <h3>Expert Colorists</h3>
+        <p>Our team continuously trains in the latest color techniques, from seamless balayage to complex color correction.</p>
+      </div>
+      <div class="value-card reveal delay-2">
+        <div class="value-icon"><i class="fas fa-couch"></i></div>
+        <h3>Luxurious Experience</h3>
+        <p>A spacious, beautifully designed salon environment combined with excellent cappuccinos and warm hospitality.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="label">The Journey</span>
+      <h2 class="section-title">How It All Began</h2>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item reveal">
+        <div class="timeline-year">2010</div>
+        <div class="timeline-body">
+          <h4>The Foundation</h4>
+          <p>Our founders established their first premium styling studio, focusing on precision cuts and perfect hospitality.</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal delay-1">
+        <div class="timeline-year">2015</div>
+        <div class="timeline-body">
+          <h4>Mastering Color</h4>
+          <p>The team expands, bringing in expert colorists to master balayage and complex color corrections.</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal delay-2">
+        <div class="timeline-year">2020</div>
+        <div class="timeline-body">
+          <h4>Cosmo Hairstyling Weena Opens</h4>
+          <p>Cosmo Hairstyling opens its spacious new flagship location in Rotterdam Weena, bringing luxury hair care to the city center.</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-year">Now</div>
+        <div class="timeline-body">
+          <h4>A 5-Star Community Favorite</h4>
+          <p>With hundreds of happy clients and a perfect 5-star Google rating, Cosmo Hairstyling continues to deliver incredible results, excellent coffee, and a welcoming atmosphere.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section class="section bg-alt">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="label">Credentials</span>
+      <h2 class="section-title">Expertise You Can Trust</h2>
+    </div>
+    <div class="certs-grid">
+      <div class="cert-box reveal">
+        <i class="fas fa-cut"></i>
+        <h4>Master Stylists</h4>
+        <p>Expert-level cutting techniques tailored to your face shape and personal style.</p>
+      </div>
+      <div class="cert-box reveal delay-1">
+        <i class="fas fa-sync"></i>
+        <h4>Curl Specialists</h4>
+        <p>Advanced techniques for curl recovery and managing naturally curly hair perfectly.</p>
+      </div>
+      <div class="cert-box reveal delay-2">
+        <i class="fas fa-palette"></i>
+        <h4>Expert Colorists</h4>
+        <p>Specialists in balayage, highlights, and full color transformations.</p>
+      </div>
+      <div class="cert-box reveal delay-3">
+        <i class="fas fa-leaf"></i>
+        <h4>Premium Hair Care</h4>
+        <p>Dedicated to using the highest quality products for healthy, vibrant hair.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="background:var(--dark);padding:80px 0;text-align:center">
+  <div class="container">
+    <span class="label" style="color:var(--gold-light)">Come Experience It</span>
+    <h2 class="section-title" style="color:var(--white);margin-bottom:18px">Ready to Meet the Team?</h2>
+    <p style="color:#aaa;margin-bottom:36px">Book your first appointment and discover why so many clients keep coming back to Cosmo Hairstyling.</p>
+    <a href="contact.html#book" class="btn btn-primary btn-lg">Book Your Appointment</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo"><span class="logo-main">Cosmo Hairstyling</span><span class="logo-sub">Rotterdam Weena</span></a>
+        <p>A premium hair salon in Rotterdam Weena. Expert stylists, flawless coloring, and the perfect atmosphere for your hair transformation.</p>
+        <div class="socials">
+          <a href="https://instagram.com/cosmohairstyling" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://wa.me/31600000000" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Pages</h4><ul>
+        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+        <li><a href="about.html"><i class="fas fa-chevron-right"></i> About</a></li>
+        <li><a href="services.html"><i class="fas fa-chevron-right"></i> Services</a></li>
+        <li><a href="gallery.html"><i class="fas fa-chevron-right"></i> Gallery</a></li>
+        <li><a href="reviews.html"><i class="fas fa-chevron-right"></i> Reviews</a></li>
+        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul>
+        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Rotterdam Weena</a></li>
+        <li><a href="tel:+31600000000"><i class="fas fa-phone-alt"></i> +31 6 0000 0000</a></li>
+        <li><a href="mailto:info@cosmohairstylingrotterdam.nl"><i class="fas fa-envelope"></i> info@cosmohairstylingrotterdam.nl</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Hours</h4><ul>
+        <li><a href="#"><i class="far fa-clock"></i> Mon–Fri: 09:00–18:00</a></li>
+        <li><a href="#"><i class="far fa-clock"></i> Saturday: 10:00–15:00</a></li>
+        <li><a href="#"><i class="far fa-clock"></i> Sunday: Closed</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div class="container"><p>© 2026 Cosmo Hairstyling Rotterdam Weena. All rights reserved.</p></div></div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

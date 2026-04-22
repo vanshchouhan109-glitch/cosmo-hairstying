@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cosmo Hairstyling | Home</title>
+  <meta name="description" content="Premium hairstyling & coloring at Cosmo Hairstyling in Rotterdam Weena. Expert stylists, luxurious salon, and excellent coffee.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="preloader.css">
+  <style>
+    /* ── Hero ─────────────────────────────────── */
+    .hero-section {
+      position: relative;
+      height: 100vh;
+      min-height: 640px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background: transparent; /* slideshow shows through */
+    }
+
+    /* Dark scrim so slides never make text unreadable */
+    .hero-bg-gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        125deg,
+        rgba(10,7,5,0.75) 0%,
+        rgba(20,15,10,0.55) 50%,
+        rgba(10,7,5,0.70) 100%
+      );
+      z-index: 1;
+    }
+
+    /* Directional overlay for depth */
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        110deg,
+        rgba(20,14,10,0.60) 0%,
+        rgba(26,23,20,0.15) 100%
+      );
+      z-index: 1;
+    }
+
+    /* Top gradient so transparent navbar text is always legible */
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 150px;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.55), transparent);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* Bottom gradient for scroll-hint area */
+    .hero-section::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 120px;
+      background: linear-gradient(to top, rgba(0,0,0,0.35), transparent);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 3; /* above all overlay layers */
+      color: var(--white);
+      padding-top: var(--nav-h);
+      max-width: 720px;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.72rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.3s forwards;
+    }
+
+    .hero-tag::before {
+      content: '';
+      display: block;
+      width: 36px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .hero-content h1 {
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      color: var(--white);
+      margin-bottom: 24px;
+      line-height: 1.05;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.5s forwards;
+    }
+
+    .hero-content h1 em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+
+    .hero-content p {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 42px;
+      font-weight: 300;
+      letter-spacing: 0.5px;
+      max-width: 520px;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.7s forwards;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.9s 0.9s forwards;
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+
+    .hero-scroll i { font-size: 1rem; }
+
+    @keyframes pulse { 0%,100%{opacity:0.4} 50%{opacity:1} }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:none} }
+
+    /* ── Trust Bar ─────────────────────────────── */
+    .trust-bar {
+      background: var(--dark);
+      padding: 28px 0;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .trust-bar .inner {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 50px;
+      flex-wrap: wrap;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #aaa;
+      font-size: 0.82rem;
+      letter-spacing: 0.5px;
+    }
+
+    .trust-item i {
+      color: var(--gold);
+      font-size: 1.1rem;
+    }
+
+    /* ── Intro ─────────────────────────────────── */
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .intro-img-wrap {
+      position: relative;
+    }
+
+    .intro-img-wrap img {
+      width: 100%;
+      height: 520px;
+      object-fit: cover;
+      border-radius: var(--radius);
+    }
+
+    .intro-badge {
+      position: absolute;
+      bottom: -28px;
+      right: -28px;
+      background: var(--gold);
+      color: var(--white);
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      box-shadow: 0 12px 32px rgba(197,160,89,0.4);
+      border: 6px solid var(--cream);
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .intro-badge strong { font-size: 1.4rem; display: block; }
+    .intro-badge span { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; }
+
+    .intro-text .label { margin-bottom: 10px; }
+
+    .intro-text h2 { margin-bottom: 22px; }
+
+    .intro-text p {
+      color: var(--muted);
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+    }
+
+    .feature-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 28px 0 36px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--beige);
+      padding: 10px 18px;
+      border-radius: 50px;
+      font-size: 0.82rem;
+      font-weight: 500;
+    }
+
+    .pill i { color: var(--gold); font-size: 0.85rem; }
+
+    /* ── Services Preview ─────────────────────── */
+    .services-preview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .svc-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 40px 28px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      border-bottom: 3px solid transparent;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .svc-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 3px;
+      background: linear-gradient(90deg, var(--gold-light), var(--gold));
+      transform: scaleX(0);
+      transition: var(--transition);
+    }
+
+    .svc-card:hover::before { transform: scaleX(1); }
+    .svc-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+
+    .svc-icon {
+      width: 72px;
+      height: 72px;
+      background: var(--beige);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 22px;
+      font-size: 1.8rem;
+      color: var(--gold);
+      transition: var(--transition);
+    }
+
+    .svc-card:hover .svc-icon {
+      background: var(--gold);
+      color: var(--white);
+    }
+
+    .svc-card h3 { font-size: 1.4rem; margin-bottom: 12px; }
+    .svc-card p { font-size: 0.9rem; color: var(--muted); }
+
+    /* ── Stats Strip ──────────────────────────── */
+    .stats-strip {
+      background: var(--gold);
+      padding: 60px 0;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      text-align: center;
+    }
+
+    .stat h3 {
+      font-size: 3rem;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+
+    .stat p {
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.75);
+    }
+
+    /* ── Reviews Teaser ───────────────────────── */
+    .testimonial-carousel { overflow: hidden; }
+
+    .testimonial-track {
+      display: flex;
+      gap: 28px;
+      animation: scroll 50s linear infinite;
+    }
+
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .testimonial-track:hover { animation-play-state: paused; }
+
+    .t-card {
+      min-width: 340px;
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 36px;
+      box-shadow: var(--shadow);
+    }
+
+    .t-stars { color: #FFB400; margin-bottom: 16px; font-size: 0.9rem; }
+    .t-text { font-style: italic; color: var(--text); margin-bottom: 18px; line-height: 1.65; font-size: 0.92rem; }
+    .t-author { font-family: 'Cormorant Garamond', serif; font-weight: 600; color: var(--gold); font-size: 1rem; }
+
+    /* ── CTA Banner ───────────────────────────── */
+    .cta-banner {
+      background: var(--dark);
+      padding: 100px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, rgba(197,160,89,0.15) 0%, transparent 70%);
+    }
+
+    .cta-banner .label { color: var(--gold-light); }
+    .cta-banner h2 { color: var(--white); margin-bottom: 18px; }
+    .cta-banner p { color: #aaa; max-width: 480px; margin: 0 auto 42px; }
+
+    .cta-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+
+    /* ── Responsive ───────────────────────────── */
+    @media (max-width: 900px) {
+      .intro-grid { grid-template-columns: 1fr; }
+      .intro-img-wrap img { height: 350px; }
+      .intro-badge { bottom: -20px; right: 10px; width: 110px; height: 110px; }
+      .services-preview-grid { grid-template-columns: 1fr 1fr; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 560px) {
+      .services-preview-grid { grid-template-columns: 1fr; }
+      .trust-bar .inner { gap: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="navbar transparent" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <span class="logo-main">Cosmo Hairstyling</span>
+      <span class="logo-sub">Premium Hairstyling · Rotterdam Weena</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="reviews.html">Reviews</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <a href="contact.html#book" class="btn btn-primary">Book Now</a>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+<div class="drawer-overlay"></div>
+<aside class="mobile-drawer">
+  <button class="drawer-close"><i class="fas fa-times"></i></button>
+  <a href="index.html" class="logo"><span class="logo-main" style="color:var(--dark)">Cosmo Hairstyling</span><span class="logo-sub">Rotterdam Weena</span></a>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="reviews.html">Reviews</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="contact.html#book" class="btn btn-primary">Book Appointment</a>
+</aside>
+
+<!-- HERO -->
+<section class="hero-section">
+  <!-- Canvas shows through — no photo needed -->
+  <div class="hero-bg-gradient"></div>
+  <div class="hero-overlay"></div>
+  <div class="container hero-content">
+    <span class="hero-tag">Rotterdam Weena · City Center</span>
+    <h1>Premium <em>Hairstyling</em><br>in Rotterdam</h1>
+    <p>Expert haircuts, coloring, and styling by the Cosmo Team. Spacious, luxurious salon, perfect personal attention, and excellent cappuccinos.</p>
+    <div class="hero-actions">
+      <a href="contact.html#book" class="btn btn-primary btn-lg">Book Your Appointment</a>
+      <a href="services.html" class="btn btn-outline btn-lg">Explore Services</a>
+    </div>
+  </div>
+  <div class="hero-scroll"><i class="fas fa-chevron-down"></i></div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="container inner">
+    <div class="trust-item"><i class="fas fa-star"></i> 5-Star Google Rating</div>
+    <div class="trust-item"><i class="fas fa-cut"></i> Expert Stylists & Colorists</div>
+    <div class="trust-item"><i class="fas fa-couch"></i> Spacious, Luxurious Salon</div>
+    <div class="trust-item"><i class="fas fa-coffee"></i> Excellent Cappuccinos</div>
+    <div class="trust-item"><i class="fas fa-map-marker-alt"></i> Rotterdam Weena</div>
+  </div>
+</div>
+
+<!-- INTRO / ABOUT TEASER -->
+<section class="section">
+  <div class="container">
+    <div class="intro-grid">
+      <div class="intro-img-wrap reveal">
+        <!-- Inline SVG — no external image file required -->
+        <svg class="svg-frame" viewBox="0 0 480 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cosmo Hairstyling illustration">
+          <defs>
+            <radialGradient id="bg1" cx="50%" cy="45%" r="65%">
+              <stop offset="0%" stop-color="#2d1e10"/>
+              <stop offset="100%" stop-color="#1a1714"/>
+            </radialGradient>
+            <radialGradient id="glow1" cx="50%" cy="42%" r="40%">
+              <stop offset="0%" stop-color="#C5A059" stop-opacity="0.22"/>
+              <stop offset="100%" stop-color="#C5A059" stop-opacity="0"/>
+            </radialGradient>
+            <filter id="soft"><feGaussianBlur stdDeviation="2.5"/></filter>
+          </defs>
+          <!-- Background -->
+          <rect width="480" height="520" fill="url(#bg1)" rx="10"/>
+          <rect width="480" height="520" fill="url(#glow1)" rx="10"/>
+          <!-- Outer decorative border -->
+          <rect x="18" y="18" width="444" height="484" fill="none" stroke="#C5A059" stroke-width="0.7" stroke-dasharray="5 10" rx="6" opacity="0.35"/>
+          <!-- Inner border -->
+          <rect x="26" y="26" width="428" height="468" fill="none" stroke="#C5A059" stroke-width="0.4" rx="4" opacity="0.18"/>
+          <!-- Lotus centre glow (blurred) -->
+          <circle cx="240" cy="240" r="90" fill="#C5A059" opacity="0.07" filter="url(#soft)"/>
+          <!-- Lotus petals (8 petals via ellipses rotated around centre) -->
+          <g transform="translate(240,240)" opacity="0.75" fill="none" stroke="#C5A059" stroke-width="1.1">
+            <ellipse rx="18" ry="56" transform="rotate(0)"/>
+            <ellipse rx="18" ry="56" transform="rotate(45)"/>
+            <ellipse rx="18" ry="56" transform="rotate(90)"/>
+            <ellipse rx="18" ry="56" transform="rotate(135)"/>
+            <ellipse rx="18" ry="56" transform="rotate(180)"/>
+            <ellipse rx="18" ry="56" transform="rotate(225)"/>
+            <ellipse rx="18" ry="56" transform="rotate(270)"/>
+            <ellipse rx="18" ry="56" transform="rotate(315)"/>
+          </g>
+          <!-- Inner petal layer -->
+          <g transform="translate(240,240)" opacity="0.45" fill="none" stroke="#E8D5A3" stroke-width="0.8">
+            <ellipse rx="10" ry="32" transform="rotate(22.5)"/>
+            <ellipse rx="10" ry="32" transform="rotate(67.5)"/>
+            <ellipse rx="10" ry="32" transform="rotate(112.5)"/>
+            <ellipse rx="10" ry="32" transform="rotate(157.5)"/>
+            <ellipse rx="10" ry="32" transform="rotate(202.5)"/>
+            <ellipse rx="10" ry="32" transform="rotate(247.5)"/>
+            <ellipse rx="10" ry="32" transform="rotate(292.5)"/>
+            <ellipse rx="10" ry="32" transform="rotate(337.5)"/>
+          </g>
+          <!-- Centre dot -->
+          <circle cx="240" cy="240" r="8" fill="#C5A059" opacity="0.9"/>
+          <circle cx="240" cy="240" r="4" fill="#E8D5A3"/>
+          <!-- Botanical stems from centre -->
+          <g stroke="#C5A059" stroke-width="0.9" opacity="0.5" fill="none">
+            <path d="M240 300 Q200 360 170 420"/>
+            <path d="M240 300 Q280 360 310 420"/>
+            <path d="M215 270 Q160 290 110 310"/>
+            <path d="M265 270 Q320 290 370 310"/>
+            <!-- Leaf shapes -->
+            <path d="M200 350 Q175 320 185 295 Q205 330 200 350Z" opacity="0.6"/>
+            <path d="M280 350 Q305 320 295 295 Q275 330 280 350Z" opacity="0.6"/>
+            <path d="M155 300 Q140 270 160 255 Q168 280 155 300Z" opacity="0.5"/>
+            <path d="M325 300 Q340 270 320 255 Q312 280 325 300Z" opacity="0.5"/>
+          </g>
+          <!-- Corner ornaments -->
+          <g stroke="#C5A059" stroke-width="0.8" opacity="0.3" fill="none">
+            <path d="M45 45 L75 45 M45 45 L45 75"/>
+            <path d="M435 45 L405 45 M435 45 L435 75"/>
+            <path d="M45 475 L75 475 M45 475 L45 445"/>
+            <path d="M435 475 L405 475 M435 475 L435 445"/>
+          </g>
+          <!-- Brand text in SVG -->
+          <text x="240" y="470" text-anchor="middle" font-family="Georgia,serif" font-size="13" fill="#C5A059" opacity="0.55" letter-spacing="4">COSMO HAIRSTYLING</text>
+        </svg>
+        <div class="intro-badge">
+          <strong>Top</strong>
+          <span>Rated in Rotterdam</span>
+        </div>
+      </div>
+      <div class="intro-text reveal delay-1">
+        <span class="label">Meet the Cosmo Team</span>
+        <h2>Your Premium Hair Care Experts</h2>
+        <p>Welcome to Cosmo Hairstyling — a luxurious and spacious salon located in the heart of Rotterdam Weena. Our highly hospitable team of expert stylists is dedicated to providing you with the ultimate salon experience.</p>
+        <p>Whether you need a quick after-work haircut, a dramatic color transformation, or specialized curl recovery, our team (Ranko, Pieta, Vanity, Robin, Diana, Stacy, and Yvonne) will deliver perfect results with meticulous attention to detail.</p>
+        <div class="feature-pills">
+          <span class="pill"><i class="fas fa-cut"></i> Precision Cuts</span>
+          <span class="pill"><i class="fas fa-palette"></i> Expert Colorists</span>
+          <span class="pill"><i class="fas fa-heart"></i> Personal Attention</span>
+          <span class="pill"><i class="fas fa-spray-can"></i> Premium Products</span>
+        </div>
+        <a href="about.html" class="btn btn-primary">Meet the Team</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES PREVIEW -->
+<section class="section bg-alt">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="label">Our Treatments</span>
+      <h2 class="section-title">Luxury Services Menu</h2>
+      <p class="section-lead">Discover our range of premium hair services designed to make you look and feel your absolute best.</p>
+      <div class="divider"><span></span><i class="fas fa-cut"></i><span></span></div>
+    </div>
+    <div class="services-preview-grid">
+      <div class="svc-card reveal">
+        <div class="svc-icon"><i class="fas fa-female"></i></div>
+        <h3>Women's Haircut</h3>
+        <p>Expert cutting and styling tailored to your face shape, hair type, and personal aesthetic. Includes wash and blow-dry.</p>
+      </div>
+      <div class="svc-card reveal delay-1">
+        <div class="svc-icon"><i class="fas fa-male"></i></div>
+        <h3>Men's Haircut</h3>
+        <p>Precision barbering, modern fading, and classic cuts for men. Fast, stylish, and perfect for an after-work refresh.</p>
+      </div>
+      <div class="svc-card reveal delay-2">
+        <div class="svc-icon"><i class="fas fa-paint-brush"></i></div>
+        <h3>Highlights & Balayage</h3>
+        <p>Beautiful, dimensional color techniques applied by our expert colorists for a natural, sun-kissed look.</p>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-icon"><i class="fas fa-palette"></i></div>
+        <h3>Full Color</h3>
+        <p>Rich, vibrant full-head coloring using premium products that protect your hair's integrity while delivering stunning results.</p>
+      </div>
+      <div class="svc-card reveal delay-1">
+        <div class="svc-icon"><i class="fas fa-wind"></i></div>
+        <h3>Blow-dry & Styling</h3>
+        <p>Professional blow-outs and styling for any occasion. Leave the salon with voluminous, perfectly styled hair.</p>
+      </div>
+      <div class="svc-card reveal delay-2">
+        <div class="svc-icon"><i class="fas fa-eye"></i></div>
+        <h3>Eyebrow Styling</h3>
+        <p>Complete your look with our professional eyebrow shaping and styling, a perfect add-on to any hair service.</p>
+      </div>
+    </div>
+    <div class="text-center mt-4 reveal">
+      <a href="services.html" class="btn btn-primary btn-lg">View Full Services</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat"><h3><span class="counter" data-target="100" data-suffix="%">0%</span></h3><p>Premium Products</p></div>
+      <div class="stat"><h3><span class="counter" data-target="5" data-suffix="★" data-decimal="false">0★</span></h3><p>Google Rating</p></div>
+      <div class="stat"><h3><span class="counter" data-target="10" data-suffix="+">0+</span></h3><p>Expert Stylists</p></div>
+      <div class="stat"><h3><span class="counter" data-target="1000" data-suffix="+">0+</span></h3><p>Happy Clients</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- REVIEWS TEASER -->
+<section class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="label">Client Stories</span>
+      <h2 class="section-title">What Our Clients Say</h2>
+      <div class="divider"><span></span><i class="fas fa-star"></i><span></span></div>
+    </div>
+  </div>
+  <div class="testimonial-carousel">
+    <div class="testimonial-track">
+      <div class="t-card"><div class="t-stars">★★★★★</div><p class="t-text">"Pieta was a lovely woman who cut my hair perfectly and managed to bring back my curls after a lot of heat damage!"</p><span class="t-author">— Susan</span></div>
+      <div class="t-card"><div class="t-stars">★★★★★</div><p class="t-text">"Ranco absolutely satisfied the hair style I wanted! I highly recommend Ranco."</p><span class="t-author">— Arceli Egos</span></div>
+      <div class="t-card"><div class="t-stars">★★★★★</div><p class="t-text">"Super nice staff, very helpful and knowledgeable. The salon is spacious and lovely to be in."</p><span class="t-author">— Tony Madisson</span></div>
+      <div class="t-card"><div class="t-stars">★★★★★</div><p class="t-text">"Vanity, your attention to detail and ability to perfectly fulfill my haircut requests make you a truly wonderful hairdresser!"</p><span class="t-author">— Pim</span></div>
+      <div class="t-card"><div class="t-stars">★★★★★</div><p class="t-text">"Professional coloring and cutting with style. And delicious cappuccino in a pleasant atmosphere."</p><span class="t-author">— Amanda Van Dijk</span></div>
+    </div>
+  </div>
+  <div class="text-center mt-4 reveal">
+    <a href="reviews.html" class="btn btn-dark">Read All Reviews</a>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner">
+  <div class="container" style="position:relative;z-index:1">
+    <span class="label">Ready for a Transformation?</span>
+    <h2 class="section-title">Book Your Hair Appointment</h2>
+    <p>Book your appointment now and experience the Cosmo Hairstyling difference — where premium care meets effortless style.</p>
+    <div class="cta-actions">
+      <a href="contact.html#book" class="btn btn-primary btn-lg">Book an Appointment</a>
+      <a href="contact.html" class="btn btn-outline btn-lg">Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo"><span class="logo-main">Cosmo Hairstyling</span><span class="logo-sub">Rotterdam Weena</span></a>
+        <p>A premium hair salon in Rotterdam Weena. Expert stylists, flawless coloring, and the perfect atmosphere for your hair transformation.</p>
+        <div class="socials">
+          <a href="https://instagram.com/cosmohairstyling" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://wa.me/31600000000" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Pages</h4>
+        <ul>
+          <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+          <li><a href="about.html"><i class="fas fa-chevron-right"></i> About</a></li>
+          <li><a href="services.html"><i class="fas fa-chevron-right"></i> Services</a></li>
+          <li><a href="gallery.html"><i class="fas fa-chevron-right"></i> Gallery</a></li>
+          <li><a href="reviews.html"><i class="fas fa-chevron-right"></i> Reviews</a></li>
+          <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="services.html"><i class="fas fa-chevron-right"></i> Women's Haircut</a></li>
+          <li><a href="services.html"><i class="fas fa-chevron-right"></i> Men's Haircut</a></li>
+          <li><a href="services.html"><i class="fas fa-chevron-right"></i> Highlights & Balayage</a></li>
+          <li><a href="services.html"><i class="fas fa-chevron-right"></i> Full Color</a></li>
+          <li><a href="services.html"><i class="fas fa-chevron-right"></i> Blow-dry & Styling</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#"><i class="fas fa-map-marker-alt"></i> Rotterdam Weena</a></li>
+          <li><a href="tel:+31600000000"><i class="fas fa-phone-alt"></i> +31 6 0000 0000</a></li>
+          <li><a href="mailto:info@cosmohairstylingrotterdam.nl"><i class="fas fa-envelope"></i> info@cosmohairstylingrotterdam.nl</a></li>
+          <li><a href="#"><i class="far fa-clock"></i> Mon–Fri 09:00–18:00</a></li>
+          <li><a href="#"><i class="far fa-clock"></i> Sat 10:00–15:00</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>© 2026 Cosmo Hairstyling Rotterdam Weena. All rights reserved. Designed with elegance.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="preloader.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

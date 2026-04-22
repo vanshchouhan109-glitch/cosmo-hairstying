@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery | Cosmo Hairstyling Rotterdam</title>
+  <meta name="description" content="Browse the Cosmo Hairstyling gallery — our salon, stunning colors, and beautiful styling results from Rotterdam Weena.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── Filter Tabs ─── */
+    .filter-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 50px;
+    }
+
+    .filter-btn {
+      padding: 10px 24px;
+      border-radius: 50px;
+      border: 1.5px solid var(--gold-light);
+      background: transparent;
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--white);
+    }
+
+    /* ── Gallery Masonry ─── */
+    .gallery-masonry {
+      columns: 3;
+      column-gap: 20px;
+    }
+
+    .gallery-item {
+      break-inside: avoid;
+      margin-bottom: 20px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .gallery-item:hover img { transform: scale(1.06); }
+
+    .gallery-item-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(26,23,20,0.7) 0%, transparent 60%);
+      opacity: 0;
+      transition: var(--transition);
+      display: flex;
+      align-items: flex-end;
+      padding: 20px;
+    }
+
+    .gallery-item:hover .gallery-item-overlay { opacity: 1; }
+
+    .gallery-item-label {
+      color: var(--white);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .gallery-zoom {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.9);
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .gallery-item:hover .gallery-zoom { opacity: 1; }
+
+    /* ── Hidden filter ─── */
+    .gallery-item[data-cat].hidden { display: none; }
+
+    /* ── Instagram CTA ─── */
+    .instagram-cta {
+      background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+      border-radius: var(--radius);
+      padding: 60px;
+      text-align: center;
+      color: var(--white);
+      margin-top: 60px;
+    }
+
+    .instagram-cta i { font-size: 3rem; margin-bottom: 16px; }
+    .instagram-cta h3 { font-size: 2rem; color: var(--white); margin-bottom: 12px; }
+    .instagram-cta p { opacity: 0.85; margin-bottom: 28px; }
+    .instagram-cta a {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--white);
+      color: #833ab4;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .instagram-cta a:hover { opacity: 0.9; transform: translateY(-3px); }
+
+    @media (max-width: 900px) { .gallery-masonry { columns: 2; } }
+    @media (max-width: 500px) { .gallery-masonry { columns: 1; } }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="navbar solid" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="logo"><span class="logo-main">Cosmo Hairstyling</span><span class="logo-sub">Premium Hairstyling · Rotterdam Weena</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="gallery.html" class="active">Gallery</a></li>
+      <li><a href="reviews.html">Reviews</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <a href="contact.html#book" class="btn btn-primary">Book Now</a>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+<div class="drawer-overlay"></div>
+<aside class="mobile-drawer">
+  <button class="drawer-close"><i class="fas fa-times"></i></button>
+  <a href="index.html" class="logo"><span class="logo-main" style="color:var(--dark)">Cosmo Hairstyling</span><span class="logo-sub">Rotterdam Weena</span></a>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="reviews.html">Reviews</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="contact.html#book" class="btn btn-primary">Book Appointment</a>
+</aside>
+
+<!-- PAGE HERO -->
+<div class="page-hero" style="background-image:url('https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&q=80&w=1600')">
+  <div class="page-hero-content">
+    <span class="label">Our Work</span>
+    <h1>The Salon Gallery</h1>
+  </div>
+</div>
+
+<!-- GALLERY -->
+<section class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="label">Browse</span>
+      <h2 class="section-title">See the Cosmo Experience</h2>
+      <p class="section-lead">From our beautiful salon space to perfect color and style results — every image tells a story of care and craftsmanship.</p>
+    </div>
+
+    <!-- Filter Tabs -->
+    <div class="filter-tabs reveal">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="salon">Salon</button>
+      <button class="filter-btn" data-filter="color">Color & Highlights</button>
+      <button class="filter-btn" data-filter="styling">Cuts & Styling</button>
+    </div>
+
+    <!-- Masonry Grid -->
+    <div class="gallery-masonry reveal">
+      <div class="gallery-item" data-cat="salon">
+        <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&q=80&w=800" alt="Cosmo Hairstyling Salon Interior">
+        <div class="gallery-item-overlay"><span class="gallery-item-label">Our Salon</span></div>
+        <div class="gallery-zoom"><i class="fas fa-search-plus"></i></div>
+      </div>
+      <div class="gallery-item" data-cat="styling">
+        <img src="https://images.unsplash.com/photo-1595476108010-b4d1f10a5146?auto=format&fit=crop&q=80&w=800" alt="Hair Styling Session">
+        <div class="gallery-item-overlay"><span class="gallery-item-label">Styling Session</span></div>
+        <div class="gallery-zoom"><i class="fas fa-search-plus"></i></div>
+      </div>
+      <div class="gallery-item" data-cat="color">
+        <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&q=80&w=800" alt="Hair Color Result">
+        <div class="gallery-item-overlay"><span class="gallery-item-label">Color & Highlights</span></div>
+        <div class="gallery-zoom"><i class="fas fa-search-plus"></i></div>
+      </div>
+      <div class="gallery-item" data-cat="styling">
+        <img src="https://images.unsplash.com/photo-1521590832167-7bfcfaa6362f?auto=format&fit=crop&q=80&w=800" alt="Hair Wash & Blow-dry">
+        <div class="gallery-item-overlay"><span class="gallery-item-label">Wash & Blow-dry</span></div>
+        <div class="gallery-zoom"><i class="fas fa-search-plus"></i></div>
+      </div>
+      <div class="gallery-item" data-cat="salon">
+        <img src="https://images.unsplash.com/photo-1600948836101-f9ffda59d250?auto=format&fit=crop&q=80&w=800" alt="Premium Hair Salon Tools">
+        <div class="gallery-item-overlay"><span class="gallery-item-label">Premium Tools</span></div>
+        <div class="gallery-zoom"><i class="fas fa-search-plus"></i></div>
+      </div>
+      <div class="gallery-item" data-cat="color">
+        <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&q=80&w=800" alt="Beautiful Balayage Results">
+        <div class="gallery-item-overlay"><span class="gallery-item-label">Beautiful Balayage</span></div>
+        <div class="gallery-zoom"><i class="fas fa-search-plus"></i></div>
+      </div>
+      <div class="gallery-item" data-cat="styling">
+        <img src="https://images.unsplash.com/photo-1516975080661-46bce0a11e1f?auto=format&fit=crop&q=80&w=800" alt="Precision Haircut">
+        <div class="gallery-item-overlay"><span class="gallery-item-label">Precision Cut</span></div>
+        <div class="gallery-zoom"><i class="fas fa-search-plus"></i></div>
+      </div>
+      <div class="gallery-item" data-cat="salon">
+        <img src="https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?auto=format&fit=crop&q=80&w=800" alt="Salon Ambiance">
+        <div class="gallery-item-overlay"><span class="gallery-item-label">Salon Ambiance</span></div>
+        <div class="gallery-zoom"><i class="fas fa-search-plus"></i></div>
+      </div>
+      <div class="gallery-item" data-cat="color">
+        <img src="https://images.unsplash.com/photo-1582095133179-bfd08e2fc6b3?auto=format&fit=crop&q=80&w=800" alt="Vibrant Hair Color">
+        <div class="gallery-item-overlay"><span class="gallery-item-label">Vibrant Color</span></div>
+        <div class="gallery-zoom"><i class="fas fa-search-plus"></i></div>
+      </div>
+    </div>
+
+    <!-- Instagram CTA -->
+    <div class="instagram-cta reveal">
+      <i class="fab fa-instagram"></i>
+      <h3>Follow @cosmohairstyling</h3>
+      <p>See our latest work, client transformations, and behind-the-scenes moments on Instagram.</p>
+      <a href="https://instagram.com/cosmohairstyling" target="_blank"><i class="fab fa-instagram"></i> Follow Us on Instagram</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo"><span class="logo-main">Cosmo Hairstyling</span><span class="logo-sub">Rotterdam Weena</span></a>
+        <p>A premium hair salon in Rotterdam Weena. Expert stylists, flawless coloring, and the perfect atmosphere for your hair transformation.</p>
+        <div class="socials">
+          <a href="https://instagram.com/cosmohairstyling" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://wa.me/31600000000" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Pages</h4><ul>
+        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+        <li><a href="about.html"><i class="fas fa-chevron-right"></i> About</a></li>
+        <li><a href="services.html"><i class="fas fa-chevron-right"></i> Services</a></li>
+        <li><a href="gallery.html"><i class="fas fa-chevron-right"></i> Gallery</a></li>
+        <li><a href="reviews.html"><i class="fas fa-chevron-right"></i> Reviews</a></li>
+        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul>
+        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Rotterdam Weena</a></li>
+        <li><a href="tel:+31600000000"><i class="fas fa-phone-alt"></i> +31 6 0000 0000</a></li>
+        <li><a href="mailto:info@cosmohairstylingrotterdam.nl"><i class="fas fa-envelope"></i> info@cosmohairstylingrotterdam.nl</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Hours</h4><ul>
+        <li><a href="#"><i class="far fa-clock"></i> Mon–Fri: 09:00–18:00</a></li>
+        <li><a href="#"><i class="far fa-clock"></i> Saturday: 10:00–15:00</a></li>
+        <li><a href="#"><i class="far fa-clock"></i> Sunday: Closed</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div class="container"><p>© 2026 Cosmo Hairstyling Rotterdam Weena. All rights reserved.</p></div></div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+  // Gallery filter
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const galleryItems = document.querySelectorAll('.gallery-item[data-cat]');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      galleryItems.forEach(item => {
+        if (filter === 'all' || item.dataset.cat === filter) {
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+    });
+  });
+</script>
+</body>
+</html>

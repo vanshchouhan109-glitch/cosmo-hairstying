@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reviews | Cosmo Hairstyling Rotterdam</title>
+  <meta name="description" content="Read authentic 5-star Google reviews from Cosmo Hairstyling clients in Rotterdam Weena. See why they keep coming back to our expert team.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── Rating Summary ─── */
+    .rating-summary {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 60px;
+      align-items: center;
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 60px;
+      box-shadow: var(--shadow);
+      margin-bottom: 70px;
+    }
+
+    .rating-score {
+      text-align: center;
+    }
+
+    .rating-score .big-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 6rem;
+      font-weight: 700;
+      color: var(--dark);
+      line-height: 1;
+    }
+
+    .rating-score .stars-row {
+      color: #FFB400;
+      font-size: 1.4rem;
+      margin: 8px 0;
+      letter-spacing: 3px;
+    }
+
+    .rating-score .total {
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .rating-bars { flex: 1; }
+
+    .rating-bar-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+
+    .bar-label {
+      font-size: 0.82rem;
+      color: var(--muted);
+      min-width: 40px;
+    }
+
+    .bar-track {
+      flex: 1;
+      height: 8px;
+      background: var(--beige);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold-light), var(--gold));
+      border-radius: 4px;
+      transition: width 1.5s ease;
+    }
+
+    .bar-count {
+      font-size: 0.82rem;
+      color: var(--muted);
+      min-width: 24px;
+      text-align: right;
+    }
+
+    /* ── Google Badge ─── */
+    .google-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 16px;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .google-badge i { color: #4285F4; font-size: 1.1rem; }
+
+    /* ── Review Cards Grid ─── */
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .review-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .review-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+
+    .review-card::before {
+      content: '\201C';
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 5rem;
+      color: var(--gold-light);
+      position: absolute;
+      top: 10px;
+      left: 24px;
+      line-height: 1;
+    }
+
+    .rc-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 18px;
+      padding-top: 16px;
+    }
+
+    .rc-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+
+    .rc-meta h4 {
+      font-size: 1.05rem;
+      margin-bottom: 2px;
+    }
+
+    .rc-meta span { font-size: 0.78rem; color: var(--muted); }
+
+    .rc-stars { color: #FFB400; font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 14px; }
+
+    .rc-text {
+      font-style: italic;
+      color: var(--text);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+
+    .rc-date {
+      margin-top: 18px;
+      font-size: 0.75rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .rc-date i { color: #4285F4; }
+
+    /* ── Highlight Quote ─── */
+    .highlight-quote {
+      background: var(--dark);
+      border-radius: var(--radius);
+      padding: 80px 60px;
+      text-align: center;
+      margin: 70px 0;
+    }
+
+    .highlight-quote .big-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: var(--white);
+      font-style: italic;
+      max-width: 800px;
+      margin: 0 auto 28px;
+      line-height: 1.4;
+    }
+
+    .highlight-quote .big-quote em { color: var(--gold-light); }
+
+    .highlight-quote cite {
+      color: var(--gold);
+      font-size: 1rem;
+      font-style: normal;
+    }
+
+    /* ── Write Review CTA ─── */
+    .write-review-cta {
+      background: var(--beige);
+      border-radius: var(--radius);
+      padding: 60px;
+      text-align: center;
+    }
+
+    .write-review-cta h3 { font-size: 2rem; margin-bottom: 12px; }
+    .write-review-cta p { color: var(--muted); margin-bottom: 28px; }
+
+    @media (max-width: 1000px) { .reviews-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 700px) {
+      .rating-summary { grid-template-columns: 1fr; padding: 36px 24px; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .highlight-quote { padding: 50px 28px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="navbar solid" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="logo"><span class="logo-main">Cosmo Hairstyling</span><span class="logo-sub">Premium Hairstyling · Rotterdam Weena</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="reviews.html" class="active">Reviews</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <a href="contact.html#book" class="btn btn-primary">Book Now</a>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+<div class="drawer-overlay"></div>
+<aside class="mobile-drawer">
+  <button class="drawer-close"><i class="fas fa-times"></i></button>
+  <a href="index.html" class="logo"><span class="logo-main" style="color:var(--dark)">Cosmo Hairstyling</span><span class="logo-sub">Rotterdam Weena</span></a>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="reviews.html">Reviews</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <a href="contact.html#book" class="btn btn-primary">Book Appointment</a>
+</aside>
+
+<!-- PAGE HERO -->
+<div class="page-hero" style="background-image:url('https://images.unsplash.com/photo-1521590832167-7bfcfaa6362f?auto=format&fit=crop&q=80&w=1600')">
+  <div class="page-hero-content">
+    <span class="label">Client Stories</span>
+    <h1>Reviews & Testimonials</h1>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<section class="section">
+  <div class="container">
+
+    <!-- Rating Summary -->
+    <div class="rating-summary reveal">
+      <div class="rating-score">
+        <div class="big-number">5.0</div>
+        <div class="stars-row">★★★★★</div>
+        <div class="total">Based on 50+ Google Reviews</div>
+        <div class="google-badge"><i class="fab fa-google"></i> Google Reviews</div>
+      </div>
+      <div class="rating-bars">
+        <div class="rating-bar-row">
+          <span class="bar-label">5 ★</span>
+          <div class="bar-track"><div class="bar-fill" style="width:96%"></div></div>
+          <span class="bar-count">48</span>
+        </div>
+        <div class="rating-bar-row">
+          <span class="bar-label">4 ★</span>
+          <div class="bar-track"><div class="bar-fill" style="width:4%"></div></div>
+          <span class="bar-count">2</span>
+        </div>
+        <div class="rating-bar-row">
+          <span class="bar-label">3 ★</span>
+          <div class="bar-track"><div class="bar-fill" style="width:0%"></div></div>
+          <span class="bar-count">0</span>
+        </div>
+        <div class="rating-bar-row">
+          <span class="bar-label">2 ★</span>
+          <div class="bar-track"><div class="bar-fill" style="width:0%"></div></div>
+          <span class="bar-count">0</span>
+        </div>
+        <div class="rating-bar-row">
+          <span class="bar-label">1 ★</span>
+          <div class="bar-track"><div class="bar-fill" style="width:0%"></div></div>
+          <span class="bar-count">0</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Review Cards -->
+    <div class="section-header reveal">
+      <span class="label">What Clients Say</span>
+      <h2 class="section-title">Authentic Google Reviews</h2>
+      <div class="divider"><span></span><i class="fas fa-star"></i><span></span></div>
+    </div>
+
+    <div class="reviews-grid">
+      <div class="review-card reveal">
+        <div class="rc-header">
+          <div class="rc-avatar">S</div>
+          <div class="rc-meta"><h4>Susan</h4><span>Verified Client</span></div>
+        </div>
+        <div class="rc-stars">★★★★★</div>
+        <p class="rc-text">"Pieta was a lovely woman who cut my hair perfectly and managed to bring back my curls after a lot of heat damage!"</p>
+        <div class="rc-date"><i class="fab fa-google"></i> Reviewed on Google</div>
+      </div>
+
+      <div class="review-card reveal delay-1">
+        <div class="rc-header">
+          <div class="rc-avatar">A</div>
+          <div class="rc-meta"><h4>Arceli Egos</h4><span>Verified Client</span></div>
+        </div>
+        <div class="rc-stars">★★★★★</div>
+        <p class="rc-text">"Ranco absolutely satisfied the hair style I wanted! I highly recommend Ranco."</p>
+        <div class="rc-date"><i class="fab fa-google"></i> Reviewed on Google</div>
+      </div>
+
+      <div class="review-card reveal delay-2">
+        <div class="rc-header">
+          <div class="rc-avatar">T</div>
+          <div class="rc-meta"><h4>Tony Madisson</h4><span>Verified Client</span></div>
+        </div>
+        <div class="rc-stars">★★★★★</div>
+        <p class="rc-text">"Super nice staff, very helpful and knowledgeable. The salon is spacious and lovely to be in."</p>
+        <div class="rc-date"><i class="fab fa-google"></i> Reviewed on Google</div>
+      </div>
+
+      <div class="review-card reveal">
+        <div class="rc-header">
+          <div class="rc-avatar">P</div>
+          <div class="rc-meta"><h4>Pim</h4><span>Verified Client</span></div>
+        </div>
+        <div class="rc-stars">★★★★★</div>
+        <p class="rc-text">"Vanity, your attention to detail and ability to perfectly fulfill my haircut requests make you a truly wonderful hairdresser!"</p>
+        <div class="rc-date"><i class="fab fa-google"></i> Reviewed on Google</div>
+      </div>
+
+      <div class="review-card reveal delay-1">
+        <div class="rc-header">
+          <div class="rc-avatar">A</div>
+          <div class="rc-meta"><h4>Amanda Van Dijk</h4><span>Verified Client</span></div>
+        </div>
+        <div class="rc-stars">★★★★★</div>
+        <p class="rc-text">"Professional coloring and cutting with style. And delicious cappuccino in a pleasant atmosphere."</p>
+        <div class="rc-date"><i class="fab fa-google"></i> Reviewed on Google</div>
+      </div>
+    </div>
+
+    <!-- Highlight Quote -->
+    <div class="highlight-quote reveal">
+      <p class="big-quote">"<em>Professional coloring and cutting</em> with style. And delicious cappuccino in a pleasant atmosphere."</p>
+      <cite>— Amanda Van Dijk, Google Review</cite>
+    </div>
+
+    <!-- Write a Review -->
+    <div class="write-review-cta reveal">
+      <span class="label">Share Your Story</span>
+      <h3>Visited Cosmo Hairstyling?</h3>
+      <p>We'd love to hear about your experience. Every review helps others discover the care they deserve.</p>
+      <a href="https://g.page/cosmohairstyling/review" target="_blank" class="btn btn-primary btn-lg"><i class="fab fa-google"></i> Write a Google Review</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo"><span class="logo-main">Cosmo Hairstyling</span><span class="logo-sub">Rotterdam Weena</span></a>
+        <p>A premium hair salon in Rotterdam Weena. Expert stylists, flawless coloring, and the perfect atmosphere for your hair transformation.</p>
+        <div class="socials">
+          <a href="https://instagram.com/cosmohairstyling" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://wa.me/31600000000" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Pages</h4><ul>
+        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+        <li><a href="about.html"><i class="fas fa-chevron-right"></i> About</a></li>
+        <li><a href="services.html"><i class="fas fa-chevron-right"></i> Services</a></li>
+        <li><a href="gallery.html"><i class="fas fa-chevron-right"></i> Gallery</a></li>
+        <li><a href="reviews.html"><i class="fas fa-chevron-right"></i> Reviews</a></li>
+        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul>
+        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Rotterdam Weena</a></li>
+        <li><a href="tel:+31600000000"><i class="fas fa-phone-alt"></i> +31 6 0000 0000</a></li>
+        <li><a href="mailto:info@cosmohairstylingrotterdam.nl"><i class="fas fa-envelope"></i> info@cosmohairstylingrotterdam.nl</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Hours</h4><ul>
+        <li><a href="#"><i class="far fa-clock"></i> Mon–Fri: 09:00–18:00</a></li>
+        <li><a href="#"><i class="far fa-clock"></i> Saturday: 10:00–15:00</a></li>
+        <li><a href="#"><i class="far fa-clock"></i> Sunday: Closed</a></li>
+      </ul></div>
+    </div>
+  </div>
+  <div class="footer-bottom"><div class="container"><p>© 2026 Cosmo Hairstyling Rotterdam Weena. All rights reserved.</p></div></div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

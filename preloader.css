@@ -1,0 +1,279 @@
+/* ============================================================
+   COSMO HAIRSTYLING — Grand Opening Preloader  (debugged)
+   ============================================================ */
+
+/* Lock body scroll while preloader is active */
+body.preloading {
+  overflow: hidden;
+}
+
+/* ── Wrapper ───────────────────────────────────────────────── */
+#preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  pointer-events: all;
+  overflow: hidden;
+  /* FIX: prevent any overflow bleed */
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+}
+
+/* ── Two halves ────────────────────────────────────────────── */
+.pre-half {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: #1A1714;
+  will-change: transform, opacity;
+  transition:
+    transform 0.9s cubic-bezier(0.76, 0, 0.24, 1),
+    opacity 0.9s ease;
+  overflow: hidden;
+  /* FIX: clip brand text during split */
+}
+
+.pre-top {
+  top: 0;
+}
+
+.pre-bottom {
+  bottom: 0;
+}
+
+/* Brand text inside each half – near the seam */
+.pre-top .pre-brand {
+  position: absolute;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.pre-bottom .pre-brand {
+  position: absolute;
+  top: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.pre-brand-main {
+  display: block;
+  font-size: clamp(1.4rem, 4vw, 3.2rem);
+  /* FIX: clamp tightened for mobile */
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 2px;
+  line-height: 1;
+}
+
+.pre-brand-sub {
+  display: block;
+  font-size: clamp(0.5rem, 1.8vw, 0.72rem);
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: #C5A059;
+  margin-top: 5px;
+}
+
+/* ── Slide-apart state ─────────────────────────────────────── */
+#preloader.split .pre-top {
+  transform: translateY(-101%);
+  opacity: 0;
+}
+
+/* FIX: 101% avoids 1px gap */
+#preloader.split .pre-bottom {
+  transform: translateY(101%);
+  opacity: 0;
+}
+
+/* ── Cut line ──────────────────────────────────────────────── */
+.pre-cut-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 0;
+  /* animated by JS */
+  height: 2px;
+  transform: translateY(-50%);
+  background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(197, 160, 89, 0.5) 20%,
+      #C5A059 50%,
+      rgba(197, 160, 89, 0.5) 80%,
+      transparent 100%);
+  box-shadow: 0 0 10px 2px rgba(197, 160, 89, 0.4);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Glowing dot at the leading edge */
+.pre-cut-line::after {
+  content: '';
+  position: absolute;
+  right: -1px;
+  top: 50%;
+  transform: translate(50%, -50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #C5A059;
+  box-shadow: 0 0 14px 5px rgba(197, 160, 89, 0.75);
+}
+
+/* ── Scissors ──────────────────────────────────────────────── */
+.pre-scissors {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  /* JS moves via translateX */
+  transform: translateY(-50%);
+  z-index: 4;
+  /* FIX: above halves AND cut line */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+  /* FIX: JS sets opacity:1 on entry */
+  will-change: transform, opacity;
+  /* FIX: GPU hint */
+}
+
+.pre-scissors svg {
+  display: block;
+  width: clamp(48px, 7vw, 88px);
+  height: clamp(48px, 7vw, 88px);
+  filter: drop-shadow(0 0 12px rgba(197, 160, 89, 0.65));
+  transform-box: fill-box;
+  /* FIX: rotation around SVG centre */
+  transform-origin: 42% 50%;
+  animation: scissorSnip 0.24s ease-in-out infinite;
+}
+
+@keyframes scissorSnip {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  50% {
+    transform: rotate(9deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+/* ── Intro text ────────────────────────────────────────────── */
+.pre-intro-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 90vw;
+  /* FIX: constrain width on mobile */
+  max-width: 640px;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none;
+  z-index: 5;
+  transition: opacity 0.45s ease;
+}
+
+.pre-intro-text.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pre-welcome {
+  display: block;
+  font-size: clamp(0.6rem, 2.5vw, 0.8rem);
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: #C5A059;
+  margin-bottom: 12px;
+  animation: plFadeUp 0.7s ease both;
+}
+
+.pre-title {
+  display: block;
+  font-size: clamp(2.2rem, 9vw, 5.5rem);
+  /* FIX: safe clamp for small phones */
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.05;
+  animation: plFadeUp 0.8s 0.15s ease both;
+}
+
+.pre-title em {
+  font-style: italic;
+  color: #C5A059;
+}
+
+.pre-tagline {
+  display: block;
+  margin-top: 12px;
+  font-size: clamp(0.7rem, 2vw, 0.9rem);
+  color: rgba(255, 255, 255, 0.55);
+  letter-spacing: 2px;
+  animation: plFadeUp 0.8s 0.3s ease both;
+}
+
+/* Gold divider lines */
+.pre-deco {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 18px;
+  animation: plFadeUp 0.8s 0.45s ease both;
+}
+
+.pre-deco-line {
+  display: block;
+  height: 1px;
+  width: 44px;
+  background: rgba(197, 160, 89, 0.5);
+}
+
+.pre-deco-dot {
+  /* FIX: pure CSS dot — no FA dependency */
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #C5A059;
+}
+
+/* ── Keyframes ─────────────────────────────────────────────── */
+@keyframes plFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Mobile tweaks ─────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .pre-top .pre-brand {
+    bottom: 14px;
+  }
+
+  .pre-bottom .pre-brand {
+    top: 14px;
+  }
+
+  .pre-deco-line {
+    width: 28px;
+  }
+}
